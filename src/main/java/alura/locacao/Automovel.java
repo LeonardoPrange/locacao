@@ -5,11 +5,11 @@ import java.util.UUID;
 public class Automovel {
     private static final double MENOR_DIARIA_VALIDA = 97;
     private static final int MENOR_QUANTIDADE_VALIDA = 0;
-    private final UUID id;
-    private final String marca;
-    private final String modelo;
-    private final Grupo grupo;
-    private final Double valorDiaria;
+    private UUID id;
+    private String marca;
+    private String modelo;
+    private Grupo grupo;
+    private Double valorDiaria;
     private int quantidade;
 
     public Automovel(String marca, String modelo, Grupo grupo, Double valorDiaria, int quantidade) throws Exception {
@@ -49,4 +49,8 @@ public class Automovel {
     }
 
     public int getQuantidade() { return quantidade; }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }
