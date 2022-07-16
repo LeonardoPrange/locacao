@@ -3,11 +3,13 @@ package alura.locacao;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("automovel")
 public class AutomovelController {
+    private List<Automovel> automoveis = new ArrayList<Automovel>();
     @GetMapping
     public ArrayList<AutomovelViewModel> obtemAutomoveis() {
         ArrayList<AutomovelViewModel> automoveis = new ArrayList<AutomovelViewModel>();
@@ -20,5 +22,17 @@ public class AutomovelController {
         automovel1.quantidade = 3;
         automoveis.add(automovel1);
         return automoveis;
+    }
+
+    @PostMapping
+    public void cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) {
+        Automovel novoAutomovel = new Automovel(
+                automovelPayload.marca,
+                automovelPayload.modelo,
+                automovelPayload.grupo,
+                automovelPayload.valorDiaria,
+                automovelPayload.quantidade
+        );
+        this.automoveis.add(novoAutomovel);
     }
 }
