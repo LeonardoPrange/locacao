@@ -1,13 +1,17 @@
 package alura.locacao;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity(name="automoveis")
 public class Automovel {
     private static final double MENOR_DIARIA_VALIDA = 97;
     private static final int MENOR_QUANTIDADE_VALIDA = 0;
+    @Id
     private UUID id;
     private String marca;
     private String modelo;
+    @Enumerated(EnumType.STRING)
     private Grupo grupo;
     private Double valorDiaria;
     private int quantidade;
@@ -26,6 +30,10 @@ public class Automovel {
         this.grupo = grupo;
         this.valorDiaria = valorDiaria;
         this.quantidade = quantidade;
+    }
+
+    public Automovel() {
+
     }
 
     public UUID getId() {
@@ -49,8 +57,4 @@ public class Automovel {
     }
 
     public int getQuantidade() { return quantidade; }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 }

@@ -1,8 +1,11 @@
 package alura.locacao;
 
-import java.util.ArrayList;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-public interface AutomovelRepository {
-    void save(Automovel automovel) throws Exception;
-    ArrayList<Automovel> list() throws Exception;
-}
+import java.util.ArrayList;
+import java.util.UUID;
+
+@Repository
+public interface AutomovelRepository extends CrudRepository<Automovel, UUID> { }

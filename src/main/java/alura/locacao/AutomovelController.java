@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @RequestMapping("automovel")
 public class AutomovelController {
     AutomovelRepository automovelRepository;
-    public AutomovelController() {
-        this.automovelRepository = new AutomovelRepositorySQL();
+    public AutomovelController(AutomovelRepository automovelRepository) {
+        this.automovelRepository = automovelRepository;
     }
     @GetMapping
     public ResponseEntity<ArrayList<AutomovelViewModel>> obtemAutomoveis() throws Exception {
-        ArrayList<Automovel> automoveis = automovelRepository.list();
+        ArrayList<Automovel> automoveis = (ArrayList<Automovel>) automovelRepository.findAll();
         List<AutomovelViewModel> automoveisViewModel = automoveis.stream().map(_automovel -> {
             AutomovelViewModel automovel = new AutomovelViewModel();
             automovel.id = _automovel.getId();
