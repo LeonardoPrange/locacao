@@ -27,7 +27,7 @@ public class AutomovelController {
     }
 
     @PostMapping
-    public void cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) throws Exception {
+    public ResponseEntity cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) {
         Automovel novoAutomovel = new Automovel(
                 automovelPayload.marca,
                 automovelPayload.modelo,
@@ -36,5 +36,6 @@ public class AutomovelController {
                 automovelPayload.quantidade
         );
         this.automoveis.add(novoAutomovel);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
