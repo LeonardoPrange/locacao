@@ -1,5 +1,7 @@
 package alura.locacao;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class AutomovelController {
     }
 
     @PostMapping
-    public void cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) {
+    public ResponseEntity cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) {
         Automovel novoAutomovel = new Automovel(
                 automovelPayload.marca,
                 automovelPayload.modelo,
@@ -34,5 +36,6 @@ public class AutomovelController {
                 automovelPayload.quantidade
         );
         this.automoveis.add(novoAutomovel);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }
