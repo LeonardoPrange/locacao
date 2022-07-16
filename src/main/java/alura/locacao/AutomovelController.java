@@ -25,7 +25,7 @@ public class AutomovelController {
     }
 
     @PostMapping
-    public void cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) {
+    public void cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) throws Exception {
         Automovel novoAutomovel = new Automovel(
                 automovelPayload.marca,
                 automovelPayload.modelo,
