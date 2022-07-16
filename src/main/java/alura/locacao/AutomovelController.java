@@ -3,10 +3,12 @@ package alura.locacao;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -14,8 +16,10 @@ import java.util.stream.Collectors;
 @RequestMapping("automovel")
 public class AutomovelController {
     AutomovelRepository automovelRepository;
-    public AutomovelController(AutomovelRepository automovelRepository) {
+    LocacaoRepository locacaoRepository;
+    public AutomovelController(AutomovelRepository automovelRepository, LocacaoRepository locacaoRepository) {
         this.automovelRepository = automovelRepository;
+        this.locacaoRepository = locacaoRepository;
     }
     @GetMapping
     public ResponseEntity<ArrayList<AutomovelViewModel>> obtemAutomoveis() throws Exception {
@@ -44,5 +48,22 @@ public class AutomovelController {
         );
         automovelRepository.save(novoAutomovel);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PostMapping("aluga")
+    public void alugaAutomovel(@RequestBody AlugaAutomovelPayload alugaAutomovelPayload) throws Exception {
+        Optional<Automovel> automovelOptional = this.automovelRepository
+                .findById(alugaAutomovelPayload.automovelId);
+
+        if(automovelOptional.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "automóvel não foi encontrado");
+
+        Automovel automovel = automovelOptional.get();
+        if(automovel.getQuantidade() == 0)
+            throw new Exception("automóvel nao esta disponível para locação");
+        automovel.locar();
+        Locacao locacao = new Locacao(automovel, alugaAutomovelPayload.usuarioId, alugaAutomovelPayload.diarias);
+        this.locacaoRepository.save(locacao);
+        this.automovelRepository.save(automovel);
     }
 }

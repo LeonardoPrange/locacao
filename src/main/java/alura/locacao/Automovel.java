@@ -57,4 +57,7 @@ public class Automovel {
     }
 
     public int getQuantidade() { return quantidade; }
+
+    public void locar() {
+    }
 }
