@@ -17,9 +17,11 @@ import java.util.stream.Collectors;
 public class AutomovelController {
     AutomovelRepository automovelRepository;
     LocacaoRepository locacaoRepository;
-    public AutomovelController(AutomovelRepository automovelRepository, LocacaoRepository locacaoRepository) {
+    LocacaoService locacaoService;
+    public AutomovelController(AutomovelRepository automovelRepository, LocacaoRepository locacaoRepository, LocacaoService locacaoService) {
         this.automovelRepository = automovelRepository;
         this.locacaoRepository = locacaoRepository;
+        this.locacaoService = locacaoService;
     }
     @GetMapping
     public ResponseEntity<ArrayList<AutomovelViewModel>> obtemAutomoveis() throws Exception {
@@ -51,19 +53,8 @@ public class AutomovelController {
     }
 
     @PostMapping("aluga")
-    public void alugaAutomovel(@RequestBody AlugaAutomovelPayload alugaAutomovelPayload) throws Exception {
-        Optional<Automovel> automovelOptional = this.automovelRepository
-                .findById(alugaAutomovelPayload.automovelId);
-
-        if(automovelOptional.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "automóvel não foi encontrado");
-
-        Automovel automovel = automovelOptional.get();
-        if(automovel.getQuantidade() == 0)
-            throw new Exception("automóvel nao esta disponível para locação");
-        automovel.locar();
-        Locacao locacao = new Locacao(automovel, alugaAutomovelPayload.usuarioId, alugaAutomovelPayload.diarias);
-        this.locacaoRepository.save(locacao);
-        this.automovelRepository.save(automovel);
+    public ResponseEntity alugaAutomovel(@RequestBody AlugaAutomovelPayload alugaAutomovelPayload) throws Exception {
+        locacaoService.alugaAutomovel(alugaAutomovelPayload.automovelId, alugaAutomovelPayload.usuarioId, alugaAutomovelPayload.diarias);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
