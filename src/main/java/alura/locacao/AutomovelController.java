@@ -51,7 +51,7 @@ public class AutomovelController {
     }
 
     @PostMapping("aluga")
-    public void alugaAutomovel(@RequestBody AlugaAutomovelPayload alugaAutomovelPayload) throws Exception {
+    public ResponseEntity alugaAutomovel(@RequestBody AlugaAutomovelPayload alugaAutomovelPayload) throws Exception {
         Optional<Automovel> automovelOptional = this.automovelRepository
                 .findById(alugaAutomovelPayload.automovelId);
 
@@ -65,5 +65,6 @@ public class AutomovelController {
         Locacao locacao = new Locacao(automovel, alugaAutomovelPayload.usuarioId, alugaAutomovelPayload.diarias);
         this.locacaoRepository.save(locacao);
         this.automovelRepository.save(automovel);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
