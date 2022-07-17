@@ -1,4 +1,4 @@
-package alura.locacao.domain.repositories.web.payloads;
+package alura.locacao.web.payloads;
 
 import alura.locacao.domain.enums.Grupo;
 

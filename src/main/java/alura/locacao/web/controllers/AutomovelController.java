@@ -1,11 +1,11 @@
-package alura.locacao.domain.repositories.web.controllers;
+package alura.locacao.web.controllers;
 
 import alura.locacao.domain.entities.Automovel;
 import alura.locacao.domain.repositories.AutomovelRepository;
 import alura.locacao.domain.repositories.LocacaoRepository;
-import alura.locacao.domain.repositories.web.payloads.AlugaAutomovelPayload;
-import alura.locacao.domain.repositories.web.payloads.CadastraAutomovelPayload;
-import alura.locacao.domain.repositories.web.viewModels.AutomovelViewModel;
+import alura.locacao.web.payloads.AlugaAutomovelPayload;
+import alura.locacao.web.payloads.CadastraAutomovelPayload;
+import alura.locacao.web.viewModels.AutomovelViewModel;
 import alura.locacao.services.LocacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package alura.locacao.domain.repositories.web.viewModels;
+package alura.locacao.web.viewModels;
 
 import alura.locacao.domain.enums.Grupo;
 
