@@ -1,4 +1,6 @@
-package alura.locacao;
+package alura.locacao.domain.repositories.web.viewModels;
+
+import alura.locacao.domain.enums.Grupo;
 
 import java.util.UUID;
 

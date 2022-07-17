@@ -1,4 +1,6 @@
-package alura.locacao;
+package alura.locacao.domain.entities;
+import alura.locacao.domain.entities.Automovel;
+
 import javax.persistence.*;
 
 import java.util.UUID;

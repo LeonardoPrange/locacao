@@ -1,15 +1,18 @@
-package alura.locacao;
+package alura.locacao.domain.repositories.web.controllers;
 
+import alura.locacao.domain.entities.Automovel;
+import alura.locacao.domain.repositories.AutomovelRepository;
+import alura.locacao.domain.repositories.LocacaoRepository;
+import alura.locacao.domain.repositories.web.payloads.AlugaAutomovelPayload;
+import alura.locacao.domain.repositories.web.payloads.CadastraAutomovelPayload;
+import alura.locacao.domain.repositories.web.viewModels.AutomovelViewModel;
+import alura.locacao.services.LocacaoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController

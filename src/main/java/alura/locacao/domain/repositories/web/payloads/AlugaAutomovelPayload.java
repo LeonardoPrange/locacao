@@ -1,4 +1,4 @@
-package alura.locacao;
+package alura.locacao.domain.repositories.web.payloads;
 
 import java.util.UUID;
 

@@ -1,5 +1,7 @@
 package alura.locacao;
 
+import alura.locacao.domain.entities.Automovel;
+import alura.locacao.domain.enums.Grupo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

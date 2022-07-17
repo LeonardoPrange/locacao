@@ -1,5 +1,9 @@
-package alura.locacao;
+package alura.locacao.services;
 
+import alura.locacao.domain.entities.Automovel;
+import alura.locacao.domain.repositories.AutomovelRepository;
+import alura.locacao.domain.entities.Locacao;
+import alura.locacao.domain.repositories.LocacaoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
