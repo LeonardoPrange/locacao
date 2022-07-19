@@ -4,6 +4,8 @@ import alura.locacao.domain.entities.Perfil;
 import alura.locacao.domain.entities.Usuario;
 import alura.locacao.domain.repositories.UsuarioRepository;
 import alura.locacao.web.payloads.CadastraUsuarioPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("usuario")
 public class UsuarioController {
     private UsuarioRepository usuarioRepository;
-
+    private Logger logger = LoggerFactory.getLogger(AutomovelController.class);
     public UsuarioController(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
