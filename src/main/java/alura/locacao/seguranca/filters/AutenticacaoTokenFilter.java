@@ -3,6 +3,9 @@ package alura.locacao.seguranca.filters;
 import alura.locacao.domain.entities.Usuario;
 import alura.locacao.domain.repositories.UsuarioRepository;
 import alura.locacao.seguranca.services.TokenService;
+import alura.locacao.web.controllers.AutomovelController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -18,6 +21,7 @@ import java.util.UUID;
 public class AutenticacaoTokenFilter extends OncePerRequestFilter {
     private TokenService tokenService;
     private UsuarioRepository usuarioRepository;
+    private Logger logger = LoggerFactory.getLogger(AutenticacaoTokenFilter.class);
 
     public AutenticacaoTokenFilter(TokenService tokenService, UsuarioRepository usuarioRepository) {
         this.tokenService = tokenService;
@@ -46,8 +50,10 @@ public class AutenticacaoTokenFilter extends OncePerRequestFilter {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                logger.error("Erro ao autenticar usuário", ex.getMessage(), idUsuario);
             }
+        } else {
+            logger.warn("Usuário não encontrar ao autenticar", idUsuario);
         }
     }
 }

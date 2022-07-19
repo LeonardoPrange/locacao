@@ -7,6 +7,8 @@ import alura.locacao.web.payloads.AlugaAutomovelPayload;
 import alura.locacao.web.payloads.CadastraAutomovelPayload;
 import alura.locacao.web.viewModels.AutomovelViewModel;
 import alura.locacao.services.LocacaoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("automovel")
 public class AutomovelController {
-    AutomovelRepository automovelRepository;
-    LocacaoRepository locacaoRepository;
-    LocacaoService locacaoService;
+    private AutomovelRepository automovelRepository;
+    private LocacaoRepository locacaoRepository;
+    private LocacaoService locacaoService;
+    private Logger logger = LoggerFactory.getLogger(AutomovelController.class);
     public AutomovelController(AutomovelRepository automovelRepository, LocacaoRepository locacaoRepository, LocacaoService locacaoService) {
         this.automovelRepository = automovelRepository;
         this.locacaoRepository = locacaoRepository;
@@ -44,15 +47,20 @@ public class AutomovelController {
 
     @PostMapping
     public ResponseEntity cadastraAutomovel(@RequestBody CadastraAutomovelPayload automovelPayload) throws Exception {
-        Automovel novoAutomovel = new Automovel(
-            automovelPayload.marca,
-            automovelPayload.modelo,
-            automovelPayload.grupo,
-            automovelPayload.valorDiaria,
-            automovelPayload.quantidade
-        );
-        automovelRepository.save(novoAutomovel);
-        return new ResponseEntity(HttpStatus.CREATED);
+        try {
+            Automovel novoAutomovel = new Automovel(
+                    automovelPayload.marca,
+                    automovelPayload.modelo,
+                    automovelPayload.grupo,
+                    automovelPayload.valorDiaria,
+                    automovelPayload.quantidade
+            );
+            automovelRepository.save(novoAutomovel);
+            return new ResponseEntity(HttpStatus.CREATED);
+        } catch (Exception exception) {
+            logger.error("Erro ao cadastrar automovel", exception.getMessage());
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("aluga")
